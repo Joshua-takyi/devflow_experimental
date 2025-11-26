@@ -1,9 +1,15 @@
 export interface UserProfile {
   id: string;
-  name: string;
-  email: string;
-  avatar: string | null;
+  firstName: string;
+  lastName: string;
+  phone: string;
+  avatar?: string | null;
   bio: string | null;
-  skillLevel: string;
-  createdAt: Date;
+  password?: string;
+  email?: string;
+}
+
+export interface AuthUser {
+  id: string;
+  email: string;
 }

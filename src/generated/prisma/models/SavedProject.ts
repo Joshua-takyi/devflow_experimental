@@ -237,7 +237,7 @@ export type SavedProjectCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutSavedProjectsInput
-  project: Prisma.ProjectCreateNestedOneWithoutSavedProjectsInput
+  project: Prisma.ProjectCreateNestedOneWithoutSavedByInput
 }
 
 export type SavedProjectUncheckedCreateInput = {
@@ -253,7 +253,7 @@ export type SavedProjectUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutSavedProjectsNestedInput
-  project?: Prisma.ProjectUpdateOneRequiredWithoutSavedProjectsNestedInput
+  project?: Prisma.ProjectUpdateOneRequiredWithoutSavedByNestedInput
 }
 
 export type SavedProjectUncheckedUpdateInput = {
@@ -413,7 +413,7 @@ export type SavedProjectCreateWithoutUserInput = {
   id?: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  project: Prisma.ProjectCreateNestedOneWithoutSavedProjectsInput
+  project: Prisma.ProjectCreateNestedOneWithoutSavedByInput
 }
 
 export type SavedProjectUncheckedCreateWithoutUserInput = {
@@ -511,7 +511,7 @@ export type SavedProjectUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  project?: Prisma.ProjectUpdateOneRequiredWithoutSavedProjectsNestedInput
+  project?: Prisma.ProjectUpdateOneRequiredWithoutSavedByNestedInput
 }
 
 export type SavedProjectUncheckedUpdateWithoutUserInput = {

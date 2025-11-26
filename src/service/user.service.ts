@@ -7,10 +7,6 @@ import { ComparePassword, HashPassword } from "../utils/security";
 
 export const userService = {
   async register(user: RegisterDTO) {
-    const existingUser = await UserRepository.findByEmail(user.email);
-    if (existingUser) {
-      throw new Error("User already exists");
-    }
     const hashedPassword = await HashPassword(user.password);
     const newUser = await UserRepository.create({
       email: user.email,
@@ -36,5 +32,14 @@ export const userService = {
 
   async delete(user: Pick<UserProfile, "id">) {
     return UserRepository.delete(user);
+  },
+
+  async update(user: UserProfile) {
+    return UserRepository.update(user);
+  },
+
+  async updatePassword(user: LoginDTO) {
+    const hashedPassword = await HashPassword(user.password);
+    return UserRepository.updatePassword({ ...user, password: hashedPassword });
   },
 };

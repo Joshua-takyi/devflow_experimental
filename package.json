@@ -7,7 +7,7 @@
     "start": "nodemon --exec tsx ./src/index.ts",
     "dev": "tsx watch ./src/index.ts",
     "test": "vitest",
-    "db:generate": "prisma generate",
+    "db:generate": "prisma generate dev",
     "db:migrate": "prisma migrate dev",
     "db:reset": "prisma migrate reset"
   },
@@ -39,6 +39,7 @@
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
+    "latest": "link:@prisma/client/latest",
     "pg": "^8.16.3",
     "tsx": "^4.20.6",
     "winston": "^3.18.3",

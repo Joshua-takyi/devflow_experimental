@@ -3,6 +3,7 @@ import { Request, Response, NextFunction } from "express";
 import { AppError } from "../config/error";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/client";
 import { logger } from "../config/logger";
+import { ZodError } from "zod";
 
 export const errorMiddleware = (
   err: Error,
@@ -13,6 +14,20 @@ export const errorMiddleware = (
   // Handle Prisma errors
   if (err instanceof PrismaClientKnownRequestError) {
     return handlePrismaError(err, res);
+  }
+
+  if (err instanceof ZodError) {
+    // Format the Zod issues into a clean array
+    const errors = err.issues.map((issue) => ({
+      field: issue.path[0], // e.g. "email"
+      message: issue.message, // e.g. "Invalid email address"
+    }));
+
+    return res.status(400).json({
+      status: "fail",
+      message: "Validation Error",
+      errors: errors,
+    });
   }
 
   // Handle custom AppError
@@ -33,10 +48,9 @@ export const errorMiddleware = (
     });
   }
   // Handle unknown errors
-  logger.error(err);
-  return res.status(500).json({
+  return res.status(err.message === "User already exists" ? 409 : 500).json({
     status: "error",
-    message: "Something went wrong!",
+    message: err.message,
   });
 };
 

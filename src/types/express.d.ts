@@ -1,18 +1,8 @@
-import { UserProps } from "./user.types";
-
+import { AuthUser } from "./user.types";
 declare global {
   namespace Express {
     interface Request {
-      user: Pick<
-        UserProps,
-        | "id"
-        | "email"
-        | "firstName"
-        | "lastName"
-        | "phone"
-        | "createdAt"
-        | "updatedAt"
-      >;
+      user: AuthUser;
     }
   }
 }

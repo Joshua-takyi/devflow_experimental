@@ -16,3 +16,11 @@ export const SkillLevel = {
 } as const
 
 export type SkillLevel = (typeof SkillLevel)[keyof typeof SkillLevel]
+
+
+export const Role = {
+  ADMIN: 'ADMIN',
+  USER: 'USER'
+} as const
+
+export type Role = (typeof Role)[keyof typeof Role]

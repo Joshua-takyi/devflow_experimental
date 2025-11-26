@@ -1,5 +1,5 @@
 import { prisma } from "../lib/prisma.ts";
-import { RegisterDTO } from "../types/auth.types.ts";
+import { LoginDTO, RegisterDTO } from "../types/auth.types.ts";
 import { UserProfile } from "../types/user.types.ts";
 
 // database logic only
@@ -25,16 +25,31 @@ export const UserRepository = {
     });
   },
 
-  update(user: Pick<UserProfile, "id">) {
+  update(user: UserProfile) {
     return prisma.user.update({
       where: { id: user.id },
-      data: user,
+      data: {
+        firstName: user.firstName,
+        lastName: user.lastName,
+        phone: user.phone,
+        bio: user.bio,
+        password: user.password,
+      },
     });
   },
 
   delete(user: Pick<UserProfile, "id">) {
     return prisma.user.delete({
       where: { id: user.id },
+    });
+  },
+
+  updatePassword(user: LoginDTO) {
+    return prisma.user.update({
+      where: { email: user.email },
+      data: {
+        password: user.password,
+      },
     });
   },
 };

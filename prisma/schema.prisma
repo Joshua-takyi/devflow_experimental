@@ -13,6 +13,11 @@ enum SkillLevel {
   ADVANCED
 }
 
+enum Role {
+  ADMIN
+  USER
+}
+
 model User {
   id            String         @id @default(uuid())
   email         String         @unique
@@ -21,7 +26,9 @@ model User {
   lastName      String?
   phone         String?
   bio           String?
+  avatar        String?
   skillLevel    SkillLevel     @default(BEGINNER)
+  role          Role           @default(USER)
   codingHours   Int            @default(0)
   projects      Project[]
   savedProjects SavedProject[]
@@ -31,14 +38,23 @@ model User {
 }
 
 model Project {
-  id            String         @id @default(uuid())
-  userId        String
-  user          User           @relation(fields: [userId], references: [id])
-  createdAt     DateTime       @default(now())
-  updatedAt     DateTime       @updatedAt
-  savedProjects SavedProject[]
-  tag           Tag            @relation(fields: [tagId], references: [id])
-  tagId         String
+  id           String         @id @default(uuid())
+  userId       String
+  user         User           @relation(fields: [userId], references: [id])
+  title        String
+  description  String
+  difficulty   SkillLevel
+  content      String // markdown or rich text
+  requirements String[] // array of strings
+  images       String[] // Cloudinary URLs
+  tagId        String
+  tag          Tag            @relation(fields: [tagId], references: [id])
+  likes        Int            @default(0)
+  views        Int            @default(0)
+  isPublic     Boolean        @default(true)
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  savedBy      SavedProject[]
 }
 
 model Tag {
@@ -63,7 +79,8 @@ model SavedProject {
 
 model RefreshToken {
   id        String   @id @default(uuid())
-  userId    String
+  userId    String   @unique
+  token     String
   user      User     @relation(fields: [userId], references: [id])
   expiredAt DateTime
   createdAt DateTime @default(now())

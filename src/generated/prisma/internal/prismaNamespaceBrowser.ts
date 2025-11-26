@@ -82,7 +82,9 @@ export const UserScalarFieldEnum = {
   lastName: 'lastName',
   phone: 'phone',
   bio: 'bio',
+  avatar: 'avatar',
   skillLevel: 'skillLevel',
+  role: 'role',
   codingHours: 'codingHours',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -94,9 +96,18 @@ export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof User
 export const ProjectScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
+  title: 'title',
+  description: 'description',
+  difficulty: 'difficulty',
+  content: 'content',
+  requirements: 'requirements',
+  images: 'images',
+  tagId: 'tagId',
+  likes: 'likes',
+  views: 'views',
+  isPublic: 'isPublic',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  tagId: 'tagId'
+  updatedAt: 'updatedAt'
 } as const
 
 export type ProjectScalarFieldEnum = (typeof ProjectScalarFieldEnum)[keyof typeof ProjectScalarFieldEnum]
@@ -126,6 +137,7 @@ export type SavedProjectScalarFieldEnum = (typeof SavedProjectScalarFieldEnum)[k
 export const RefreshTokenScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
+  token: 'token',
   expiredAt: 'expiredAt',
   createdAt: 'createdAt'
 } as const

@@ -12,4 +12,5 @@ export interface UserProfile {
 export interface AuthUser {
   id: string;
   email: string;
+  role: "ADMIN" | "USER";
 }

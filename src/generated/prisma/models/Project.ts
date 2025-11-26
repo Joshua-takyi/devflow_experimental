@@ -20,32 +20,18 @@ export type ProjectModel = runtime.Types.Result.DefaultSelection<Prisma.$Project
 
 export type AggregateProject = {
   _count: ProjectCountAggregateOutputType | null
-  _avg: ProjectAvgAggregateOutputType | null
-  _sum: ProjectSumAggregateOutputType | null
   _min: ProjectMinAggregateOutputType | null
   _max: ProjectMaxAggregateOutputType | null
-}
-
-export type ProjectAvgAggregateOutputType = {
-  likes: number | null
-  views: number | null
-}
-
-export type ProjectSumAggregateOutputType = {
-  likes: number | null
-  views: number | null
 }
 
 export type ProjectMinAggregateOutputType = {
   id: string | null
   userId: string | null
   title: string | null
-  description: string | null
+  summary: string | null
   difficulty: $Enums.SkillLevel | null
   content: string | null
-  tagId: string | null
-  likes: number | null
-  views: number | null
+  coverImage: string | null
   isPublic: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -55,12 +41,10 @@ export type ProjectMaxAggregateOutputType = {
   id: string | null
   userId: string | null
   title: string | null
-  description: string | null
+  summary: string | null
   difficulty: $Enums.SkillLevel | null
   content: string | null
-  tagId: string | null
-  likes: number | null
-  views: number | null
+  coverImage: string | null
   isPublic: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -70,14 +54,11 @@ export type ProjectCountAggregateOutputType = {
   id: number
   userId: number
   title: number
-  description: number
+  summary: number
   difficulty: number
   content: number
   requirements: number
-  images: number
-  tagId: number
-  likes: number
-  views: number
+  coverImage: number
   isPublic: number
   createdAt: number
   updatedAt: number
@@ -85,26 +66,14 @@ export type ProjectCountAggregateOutputType = {
 }
 
 
-export type ProjectAvgAggregateInputType = {
-  likes?: true
-  views?: true
-}
-
-export type ProjectSumAggregateInputType = {
-  likes?: true
-  views?: true
-}
-
 export type ProjectMinAggregateInputType = {
   id?: true
   userId?: true
   title?: true
-  description?: true
+  summary?: true
   difficulty?: true
   content?: true
-  tagId?: true
-  likes?: true
-  views?: true
+  coverImage?: true
   isPublic?: true
   createdAt?: true
   updatedAt?: true
@@ -114,12 +83,10 @@ export type ProjectMaxAggregateInputType = {
   id?: true
   userId?: true
   title?: true
-  description?: true
+  summary?: true
   difficulty?: true
   content?: true
-  tagId?: true
-  likes?: true
-  views?: true
+  coverImage?: true
   isPublic?: true
   createdAt?: true
   updatedAt?: true
@@ -129,14 +96,11 @@ export type ProjectCountAggregateInputType = {
   id?: true
   userId?: true
   title?: true
-  description?: true
+  summary?: true
   difficulty?: true
   content?: true
   requirements?: true
-  images?: true
-  tagId?: true
-  likes?: true
-  views?: true
+  coverImage?: true
   isPublic?: true
   createdAt?: true
   updatedAt?: true
@@ -181,18 +145,6 @@ export type ProjectAggregateArgs<ExtArgs extends runtime.Types.Extensions.Intern
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
-   * Select which fields to average
-  **/
-  _avg?: ProjectAvgAggregateInputType
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-   * 
-   * Select which fields to sum
-  **/
-  _sum?: ProjectSumAggregateInputType
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-   * 
    * Select which fields to find the minimum value
   **/
   _min?: ProjectMinAggregateInputType
@@ -223,8 +175,6 @@ export type ProjectGroupByArgs<ExtArgs extends runtime.Types.Extensions.Internal
   take?: number
   skip?: number
   _count?: ProjectCountAggregateInputType | true
-  _avg?: ProjectAvgAggregateInputType
-  _sum?: ProjectSumAggregateInputType
   _min?: ProjectMinAggregateInputType
   _max?: ProjectMaxAggregateInputType
 }
@@ -233,20 +183,15 @@ export type ProjectGroupByOutputType = {
   id: string
   userId: string
   title: string
-  description: string
+  summary: string
   difficulty: $Enums.SkillLevel
-  content: string | null
+  content: string
   requirements: string[]
-  images: string[]
-  tagId: string
-  likes: number
-  views: number
+  coverImage: string | null
   isPublic: boolean
   createdAt: Date
   updatedAt: Date
   _count: ProjectCountAggregateOutputType | null
-  _avg: ProjectAvgAggregateOutputType | null
-  _sum: ProjectSumAggregateOutputType | null
   _min: ProjectMinAggregateOutputType | null
   _max: ProjectMaxAggregateOutputType | null
 }
@@ -273,40 +218,40 @@ export type ProjectWhereInput = {
   id?: Prisma.StringFilter<"Project"> | string
   userId?: Prisma.StringFilter<"Project"> | string
   title?: Prisma.StringFilter<"Project"> | string
-  description?: Prisma.StringFilter<"Project"> | string
+  summary?: Prisma.StringFilter<"Project"> | string
   difficulty?: Prisma.EnumSkillLevelFilter<"Project"> | $Enums.SkillLevel
-  content?: Prisma.StringNullableFilter<"Project"> | string | null
+  content?: Prisma.StringFilter<"Project"> | string
   requirements?: Prisma.StringNullableListFilter<"Project">
-  images?: Prisma.StringNullableListFilter<"Project">
-  tagId?: Prisma.StringFilter<"Project"> | string
-  likes?: Prisma.IntFilter<"Project"> | number
-  views?: Prisma.IntFilter<"Project"> | number
+  coverImage?: Prisma.StringNullableFilter<"Project"> | string | null
   isPublic?: Prisma.BoolFilter<"Project"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Project"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Project"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  tag?: Prisma.XOR<Prisma.TagScalarRelationFilter, Prisma.TagWhereInput>
+  tags?: Prisma.TagListRelationFilter
+  metaData?: Prisma.MetaDataListRelationFilter
+  projectSteps?: Prisma.ProjectStepListRelationFilter
   savedBy?: Prisma.SavedProjectListRelationFilter
+  comments?: Prisma.CommentListRelationFilter
 }
 
 export type ProjectOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   title?: Prisma.SortOrder
-  description?: Prisma.SortOrder
+  summary?: Prisma.SortOrder
   difficulty?: Prisma.SortOrder
-  content?: Prisma.SortOrderInput | Prisma.SortOrder
+  content?: Prisma.SortOrder
   requirements?: Prisma.SortOrder
-  images?: Prisma.SortOrder
-  tagId?: Prisma.SortOrder
-  likes?: Prisma.SortOrder
-  views?: Prisma.SortOrder
+  coverImage?: Prisma.SortOrderInput | Prisma.SortOrder
   isPublic?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
-  tag?: Prisma.TagOrderByWithRelationInput
+  tags?: Prisma.TagOrderByRelationAggregateInput
+  metaData?: Prisma.MetaDataOrderByRelationAggregateInput
+  projectSteps?: Prisma.ProjectStepOrderByRelationAggregateInput
   savedBy?: Prisma.SavedProjectOrderByRelationAggregateInput
+  comments?: Prisma.CommentOrderByRelationAggregateInput
 }
 
 export type ProjectWhereUniqueInput = Prisma.AtLeast<{
@@ -316,42 +261,37 @@ export type ProjectWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.ProjectWhereInput | Prisma.ProjectWhereInput[]
   userId?: Prisma.StringFilter<"Project"> | string
   title?: Prisma.StringFilter<"Project"> | string
-  description?: Prisma.StringFilter<"Project"> | string
+  summary?: Prisma.StringFilter<"Project"> | string
   difficulty?: Prisma.EnumSkillLevelFilter<"Project"> | $Enums.SkillLevel
-  content?: Prisma.StringNullableFilter<"Project"> | string | null
+  content?: Prisma.StringFilter<"Project"> | string
   requirements?: Prisma.StringNullableListFilter<"Project">
-  images?: Prisma.StringNullableListFilter<"Project">
-  tagId?: Prisma.StringFilter<"Project"> | string
-  likes?: Prisma.IntFilter<"Project"> | number
-  views?: Prisma.IntFilter<"Project"> | number
+  coverImage?: Prisma.StringNullableFilter<"Project"> | string | null
   isPublic?: Prisma.BoolFilter<"Project"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Project"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Project"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  tag?: Prisma.XOR<Prisma.TagScalarRelationFilter, Prisma.TagWhereInput>
+  tags?: Prisma.TagListRelationFilter
+  metaData?: Prisma.MetaDataListRelationFilter
+  projectSteps?: Prisma.ProjectStepListRelationFilter
   savedBy?: Prisma.SavedProjectListRelationFilter
+  comments?: Prisma.CommentListRelationFilter
 }, "id">
 
 export type ProjectOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   title?: Prisma.SortOrder
-  description?: Prisma.SortOrder
+  summary?: Prisma.SortOrder
   difficulty?: Prisma.SortOrder
-  content?: Prisma.SortOrderInput | Prisma.SortOrder
+  content?: Prisma.SortOrder
   requirements?: Prisma.SortOrder
-  images?: Prisma.SortOrder
-  tagId?: Prisma.SortOrder
-  likes?: Prisma.SortOrder
-  views?: Prisma.SortOrder
+  coverImage?: Prisma.SortOrderInput | Prisma.SortOrder
   isPublic?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.ProjectCountOrderByAggregateInput
-  _avg?: Prisma.ProjectAvgOrderByAggregateInput
   _max?: Prisma.ProjectMaxOrderByAggregateInput
   _min?: Prisma.ProjectMinOrderByAggregateInput
-  _sum?: Prisma.ProjectSumOrderByAggregateInput
 }
 
 export type ProjectScalarWhereWithAggregatesInput = {
@@ -361,14 +301,11 @@ export type ProjectScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Project"> | string
   userId?: Prisma.StringWithAggregatesFilter<"Project"> | string
   title?: Prisma.StringWithAggregatesFilter<"Project"> | string
-  description?: Prisma.StringWithAggregatesFilter<"Project"> | string
+  summary?: Prisma.StringWithAggregatesFilter<"Project"> | string
   difficulty?: Prisma.EnumSkillLevelWithAggregatesFilter<"Project"> | $Enums.SkillLevel
-  content?: Prisma.StringNullableWithAggregatesFilter<"Project"> | string | null
+  content?: Prisma.StringWithAggregatesFilter<"Project"> | string
   requirements?: Prisma.StringNullableListFilter<"Project">
-  images?: Prisma.StringNullableListFilter<"Project">
-  tagId?: Prisma.StringWithAggregatesFilter<"Project"> | string
-  likes?: Prisma.IntWithAggregatesFilter<"Project"> | number
-  views?: Prisma.IntWithAggregatesFilter<"Project"> | number
+  coverImage?: Prisma.StringNullableWithAggregatesFilter<"Project"> | string | null
   isPublic?: Prisma.BoolWithAggregatesFilter<"Project"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Project"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Project"> | Date | string
@@ -377,87 +314,88 @@ export type ProjectScalarWhereWithAggregatesInput = {
 export type ProjectCreateInput = {
   id?: string
   title: string
-  description: string
+  summary: string
   difficulty: $Enums.SkillLevel
-  content?: string | null
+  content: string
   requirements?: Prisma.ProjectCreaterequirementsInput | string[]
-  images?: Prisma.ProjectCreateimagesInput | string[]
-  likes?: number
-  views?: number
+  coverImage?: string | null
   isPublic?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutProjectsInput
-  tag: Prisma.TagCreateNestedOneWithoutProjectsInput
+  tags?: Prisma.TagCreateNestedManyWithoutProjectsInput
+  metaData?: Prisma.MetaDataCreateNestedManyWithoutProjectInput
+  projectSteps?: Prisma.ProjectStepCreateNestedManyWithoutProjectInput
   savedBy?: Prisma.SavedProjectCreateNestedManyWithoutProjectInput
+  comments?: Prisma.CommentCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateInput = {
   id?: string
   userId: string
   title: string
-  description: string
+  summary: string
   difficulty: $Enums.SkillLevel
-  content?: string | null
+  content: string
   requirements?: Prisma.ProjectCreaterequirementsInput | string[]
-  images?: Prisma.ProjectCreateimagesInput | string[]
-  tagId: string
-  likes?: number
-  views?: number
+  coverImage?: string | null
   isPublic?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  tags?: Prisma.TagUncheckedCreateNestedManyWithoutProjectsInput
+  metaData?: Prisma.MetaDataUncheckedCreateNestedManyWithoutProjectInput
+  projectSteps?: Prisma.ProjectStepUncheckedCreateNestedManyWithoutProjectInput
   savedBy?: Prisma.SavedProjectUncheckedCreateNestedManyWithoutProjectInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
+  summary?: Prisma.StringFieldUpdateOperationsInput | string
   difficulty?: Prisma.EnumSkillLevelFieldUpdateOperationsInput | $Enums.SkillLevel
-  content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  content?: Prisma.StringFieldUpdateOperationsInput | string
   requirements?: Prisma.ProjectUpdaterequirementsInput | string[]
-  images?: Prisma.ProjectUpdateimagesInput | string[]
-  likes?: Prisma.IntFieldUpdateOperationsInput | number
-  views?: Prisma.IntFieldUpdateOperationsInput | number
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
-  tag?: Prisma.TagUpdateOneRequiredWithoutProjectsNestedInput
+  tags?: Prisma.TagUpdateManyWithoutProjectsNestedInput
+  metaData?: Prisma.MetaDataUpdateManyWithoutProjectNestedInput
+  projectSteps?: Prisma.ProjectStepUpdateManyWithoutProjectNestedInput
   savedBy?: Prisma.SavedProjectUpdateManyWithoutProjectNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
+  summary?: Prisma.StringFieldUpdateOperationsInput | string
   difficulty?: Prisma.EnumSkillLevelFieldUpdateOperationsInput | $Enums.SkillLevel
-  content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  content?: Prisma.StringFieldUpdateOperationsInput | string
   requirements?: Prisma.ProjectUpdaterequirementsInput | string[]
-  images?: Prisma.ProjectUpdateimagesInput | string[]
-  tagId?: Prisma.StringFieldUpdateOperationsInput | string
-  likes?: Prisma.IntFieldUpdateOperationsInput | number
-  views?: Prisma.IntFieldUpdateOperationsInput | number
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tags?: Prisma.TagUncheckedUpdateManyWithoutProjectsNestedInput
+  metaData?: Prisma.MetaDataUncheckedUpdateManyWithoutProjectNestedInput
+  projectSteps?: Prisma.ProjectStepUncheckedUpdateManyWithoutProjectNestedInput
   savedBy?: Prisma.SavedProjectUncheckedUpdateManyWithoutProjectNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateManyInput = {
   id?: string
   userId: string
   title: string
-  description: string
+  summary: string
   difficulty: $Enums.SkillLevel
-  content?: string | null
+  content: string
   requirements?: Prisma.ProjectCreaterequirementsInput | string[]
-  images?: Prisma.ProjectCreateimagesInput | string[]
-  tagId: string
-  likes?: number
-  views?: number
+  coverImage?: string | null
   isPublic?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -466,13 +404,11 @@ export type ProjectCreateManyInput = {
 export type ProjectUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
+  summary?: Prisma.StringFieldUpdateOperationsInput | string
   difficulty?: Prisma.EnumSkillLevelFieldUpdateOperationsInput | $Enums.SkillLevel
-  content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  content?: Prisma.StringFieldUpdateOperationsInput | string
   requirements?: Prisma.ProjectUpdaterequirementsInput | string[]
-  images?: Prisma.ProjectUpdateimagesInput | string[]
-  likes?: Prisma.IntFieldUpdateOperationsInput | number
-  views?: Prisma.IntFieldUpdateOperationsInput | number
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -482,14 +418,11 @@ export type ProjectUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
+  summary?: Prisma.StringFieldUpdateOperationsInput | string
   difficulty?: Prisma.EnumSkillLevelFieldUpdateOperationsInput | $Enums.SkillLevel
-  content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  content?: Prisma.StringFieldUpdateOperationsInput | string
   requirements?: Prisma.ProjectUpdaterequirementsInput | string[]
-  images?: Prisma.ProjectUpdateimagesInput | string[]
-  tagId?: Prisma.StringFieldUpdateOperationsInput | string
-  likes?: Prisma.IntFieldUpdateOperationsInput | number
-  views?: Prisma.IntFieldUpdateOperationsInput | number
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -517,34 +450,24 @@ export type ProjectCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   title?: Prisma.SortOrder
-  description?: Prisma.SortOrder
+  summary?: Prisma.SortOrder
   difficulty?: Prisma.SortOrder
   content?: Prisma.SortOrder
   requirements?: Prisma.SortOrder
-  images?: Prisma.SortOrder
-  tagId?: Prisma.SortOrder
-  likes?: Prisma.SortOrder
-  views?: Prisma.SortOrder
+  coverImage?: Prisma.SortOrder
   isPublic?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-}
-
-export type ProjectAvgOrderByAggregateInput = {
-  likes?: Prisma.SortOrder
-  views?: Prisma.SortOrder
 }
 
 export type ProjectMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   title?: Prisma.SortOrder
-  description?: Prisma.SortOrder
+  summary?: Prisma.SortOrder
   difficulty?: Prisma.SortOrder
   content?: Prisma.SortOrder
-  tagId?: Prisma.SortOrder
-  likes?: Prisma.SortOrder
-  views?: Prisma.SortOrder
+  coverImage?: Prisma.SortOrder
   isPublic?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -554,20 +477,13 @@ export type ProjectMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   title?: Prisma.SortOrder
-  description?: Prisma.SortOrder
+  summary?: Prisma.SortOrder
   difficulty?: Prisma.SortOrder
   content?: Prisma.SortOrder
-  tagId?: Prisma.SortOrder
-  likes?: Prisma.SortOrder
-  views?: Prisma.SortOrder
+  coverImage?: Prisma.SortOrder
   isPublic?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-}
-
-export type ProjectSumOrderByAggregateInput = {
-  likes?: Prisma.SortOrder
-  views?: Prisma.SortOrder
 }
 
 export type ProjectScalarRelationFilter = {
@@ -621,16 +537,7 @@ export type ProjectCreaterequirementsInput = {
   set: string[]
 }
 
-export type ProjectCreateimagesInput = {
-  set: string[]
-}
-
 export type ProjectUpdaterequirementsInput = {
-  set?: string[]
-  push?: string | string[]
-}
-
-export type ProjectUpdateimagesInput = {
   set?: string[]
   push?: string | string[]
 }
@@ -639,45 +546,83 @@ export type BoolFieldUpdateOperationsInput = {
   set?: boolean
 }
 
-export type ProjectCreateNestedManyWithoutTagInput = {
-  create?: Prisma.XOR<Prisma.ProjectCreateWithoutTagInput, Prisma.ProjectUncheckedCreateWithoutTagInput> | Prisma.ProjectCreateWithoutTagInput[] | Prisma.ProjectUncheckedCreateWithoutTagInput[]
-  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutTagInput | Prisma.ProjectCreateOrConnectWithoutTagInput[]
-  createMany?: Prisma.ProjectCreateManyTagInputEnvelope
+export type ProjectCreateNestedOneWithoutProjectStepsInput = {
+  create?: Prisma.XOR<Prisma.ProjectCreateWithoutProjectStepsInput, Prisma.ProjectUncheckedCreateWithoutProjectStepsInput>
+  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutProjectStepsInput
+  connect?: Prisma.ProjectWhereUniqueInput
+}
+
+export type ProjectUpdateOneRequiredWithoutProjectStepsNestedInput = {
+  create?: Prisma.XOR<Prisma.ProjectCreateWithoutProjectStepsInput, Prisma.ProjectUncheckedCreateWithoutProjectStepsInput>
+  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutProjectStepsInput
+  upsert?: Prisma.ProjectUpsertWithoutProjectStepsInput
+  connect?: Prisma.ProjectWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ProjectUpdateToOneWithWhereWithoutProjectStepsInput, Prisma.ProjectUpdateWithoutProjectStepsInput>, Prisma.ProjectUncheckedUpdateWithoutProjectStepsInput>
+}
+
+export type ProjectCreateNestedOneWithoutCommentsInput = {
+  create?: Prisma.XOR<Prisma.ProjectCreateWithoutCommentsInput, Prisma.ProjectUncheckedCreateWithoutCommentsInput>
+  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutCommentsInput
+  connect?: Prisma.ProjectWhereUniqueInput
+}
+
+export type ProjectUpdateOneRequiredWithoutCommentsNestedInput = {
+  create?: Prisma.XOR<Prisma.ProjectCreateWithoutCommentsInput, Prisma.ProjectUncheckedCreateWithoutCommentsInput>
+  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutCommentsInput
+  upsert?: Prisma.ProjectUpsertWithoutCommentsInput
+  connect?: Prisma.ProjectWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ProjectUpdateToOneWithWhereWithoutCommentsInput, Prisma.ProjectUpdateWithoutCommentsInput>, Prisma.ProjectUncheckedUpdateWithoutCommentsInput>
+}
+
+export type ProjectCreateNestedOneWithoutMetaDataInput = {
+  create?: Prisma.XOR<Prisma.ProjectCreateWithoutMetaDataInput, Prisma.ProjectUncheckedCreateWithoutMetaDataInput>
+  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutMetaDataInput
+  connect?: Prisma.ProjectWhereUniqueInput
+}
+
+export type ProjectUpdateOneRequiredWithoutMetaDataNestedInput = {
+  create?: Prisma.XOR<Prisma.ProjectCreateWithoutMetaDataInput, Prisma.ProjectUncheckedCreateWithoutMetaDataInput>
+  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutMetaDataInput
+  upsert?: Prisma.ProjectUpsertWithoutMetaDataInput
+  connect?: Prisma.ProjectWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ProjectUpdateToOneWithWhereWithoutMetaDataInput, Prisma.ProjectUpdateWithoutMetaDataInput>, Prisma.ProjectUncheckedUpdateWithoutMetaDataInput>
+}
+
+export type ProjectCreateNestedManyWithoutTagsInput = {
+  create?: Prisma.XOR<Prisma.ProjectCreateWithoutTagsInput, Prisma.ProjectUncheckedCreateWithoutTagsInput> | Prisma.ProjectCreateWithoutTagsInput[] | Prisma.ProjectUncheckedCreateWithoutTagsInput[]
+  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutTagsInput | Prisma.ProjectCreateOrConnectWithoutTagsInput[]
   connect?: Prisma.ProjectWhereUniqueInput | Prisma.ProjectWhereUniqueInput[]
 }
 
-export type ProjectUncheckedCreateNestedManyWithoutTagInput = {
-  create?: Prisma.XOR<Prisma.ProjectCreateWithoutTagInput, Prisma.ProjectUncheckedCreateWithoutTagInput> | Prisma.ProjectCreateWithoutTagInput[] | Prisma.ProjectUncheckedCreateWithoutTagInput[]
-  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutTagInput | Prisma.ProjectCreateOrConnectWithoutTagInput[]
-  createMany?: Prisma.ProjectCreateManyTagInputEnvelope
+export type ProjectUncheckedCreateNestedManyWithoutTagsInput = {
+  create?: Prisma.XOR<Prisma.ProjectCreateWithoutTagsInput, Prisma.ProjectUncheckedCreateWithoutTagsInput> | Prisma.ProjectCreateWithoutTagsInput[] | Prisma.ProjectUncheckedCreateWithoutTagsInput[]
+  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutTagsInput | Prisma.ProjectCreateOrConnectWithoutTagsInput[]
   connect?: Prisma.ProjectWhereUniqueInput | Prisma.ProjectWhereUniqueInput[]
 }
 
-export type ProjectUpdateManyWithoutTagNestedInput = {
-  create?: Prisma.XOR<Prisma.ProjectCreateWithoutTagInput, Prisma.ProjectUncheckedCreateWithoutTagInput> | Prisma.ProjectCreateWithoutTagInput[] | Prisma.ProjectUncheckedCreateWithoutTagInput[]
-  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutTagInput | Prisma.ProjectCreateOrConnectWithoutTagInput[]
-  upsert?: Prisma.ProjectUpsertWithWhereUniqueWithoutTagInput | Prisma.ProjectUpsertWithWhereUniqueWithoutTagInput[]
-  createMany?: Prisma.ProjectCreateManyTagInputEnvelope
+export type ProjectUpdateManyWithoutTagsNestedInput = {
+  create?: Prisma.XOR<Prisma.ProjectCreateWithoutTagsInput, Prisma.ProjectUncheckedCreateWithoutTagsInput> | Prisma.ProjectCreateWithoutTagsInput[] | Prisma.ProjectUncheckedCreateWithoutTagsInput[]
+  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutTagsInput | Prisma.ProjectCreateOrConnectWithoutTagsInput[]
+  upsert?: Prisma.ProjectUpsertWithWhereUniqueWithoutTagsInput | Prisma.ProjectUpsertWithWhereUniqueWithoutTagsInput[]
   set?: Prisma.ProjectWhereUniqueInput | Prisma.ProjectWhereUniqueInput[]
   disconnect?: Prisma.ProjectWhereUniqueInput | Prisma.ProjectWhereUniqueInput[]
   delete?: Prisma.ProjectWhereUniqueInput | Prisma.ProjectWhereUniqueInput[]
   connect?: Prisma.ProjectWhereUniqueInput | Prisma.ProjectWhereUniqueInput[]
-  update?: Prisma.ProjectUpdateWithWhereUniqueWithoutTagInput | Prisma.ProjectUpdateWithWhereUniqueWithoutTagInput[]
-  updateMany?: Prisma.ProjectUpdateManyWithWhereWithoutTagInput | Prisma.ProjectUpdateManyWithWhereWithoutTagInput[]
+  update?: Prisma.ProjectUpdateWithWhereUniqueWithoutTagsInput | Prisma.ProjectUpdateWithWhereUniqueWithoutTagsInput[]
+  updateMany?: Prisma.ProjectUpdateManyWithWhereWithoutTagsInput | Prisma.ProjectUpdateManyWithWhereWithoutTagsInput[]
   deleteMany?: Prisma.ProjectScalarWhereInput | Prisma.ProjectScalarWhereInput[]
 }
 
-export type ProjectUncheckedUpdateManyWithoutTagNestedInput = {
-  create?: Prisma.XOR<Prisma.ProjectCreateWithoutTagInput, Prisma.ProjectUncheckedCreateWithoutTagInput> | Prisma.ProjectCreateWithoutTagInput[] | Prisma.ProjectUncheckedCreateWithoutTagInput[]
-  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutTagInput | Prisma.ProjectCreateOrConnectWithoutTagInput[]
-  upsert?: Prisma.ProjectUpsertWithWhereUniqueWithoutTagInput | Prisma.ProjectUpsertWithWhereUniqueWithoutTagInput[]
-  createMany?: Prisma.ProjectCreateManyTagInputEnvelope
+export type ProjectUncheckedUpdateManyWithoutTagsNestedInput = {
+  create?: Prisma.XOR<Prisma.ProjectCreateWithoutTagsInput, Prisma.ProjectUncheckedCreateWithoutTagsInput> | Prisma.ProjectCreateWithoutTagsInput[] | Prisma.ProjectUncheckedCreateWithoutTagsInput[]
+  connectOrCreate?: Prisma.ProjectCreateOrConnectWithoutTagsInput | Prisma.ProjectCreateOrConnectWithoutTagsInput[]
+  upsert?: Prisma.ProjectUpsertWithWhereUniqueWithoutTagsInput | Prisma.ProjectUpsertWithWhereUniqueWithoutTagsInput[]
   set?: Prisma.ProjectWhereUniqueInput | Prisma.ProjectWhereUniqueInput[]
   disconnect?: Prisma.ProjectWhereUniqueInput | Prisma.ProjectWhereUniqueInput[]
   delete?: Prisma.ProjectWhereUniqueInput | Prisma.ProjectWhereUniqueInput[]
   connect?: Prisma.ProjectWhereUniqueInput | Prisma.ProjectWhereUniqueInput[]
-  update?: Prisma.ProjectUpdateWithWhereUniqueWithoutTagInput | Prisma.ProjectUpdateWithWhereUniqueWithoutTagInput[]
-  updateMany?: Prisma.ProjectUpdateManyWithWhereWithoutTagInput | Prisma.ProjectUpdateManyWithWhereWithoutTagInput[]
+  update?: Prisma.ProjectUpdateWithWhereUniqueWithoutTagsInput | Prisma.ProjectUpdateWithWhereUniqueWithoutTagsInput[]
+  updateMany?: Prisma.ProjectUpdateManyWithWhereWithoutTagsInput | Prisma.ProjectUpdateManyWithWhereWithoutTagsInput[]
   deleteMany?: Prisma.ProjectScalarWhereInput | Prisma.ProjectScalarWhereInput[]
 }
 
@@ -698,35 +643,37 @@ export type ProjectUpdateOneRequiredWithoutSavedByNestedInput = {
 export type ProjectCreateWithoutUserInput = {
   id?: string
   title: string
-  description: string
+  summary: string
   difficulty: $Enums.SkillLevel
-  content?: string | null
+  content: string
   requirements?: Prisma.ProjectCreaterequirementsInput | string[]
-  images?: Prisma.ProjectCreateimagesInput | string[]
-  likes?: number
-  views?: number
+  coverImage?: string | null
   isPublic?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  tag: Prisma.TagCreateNestedOneWithoutProjectsInput
+  tags?: Prisma.TagCreateNestedManyWithoutProjectsInput
+  metaData?: Prisma.MetaDataCreateNestedManyWithoutProjectInput
+  projectSteps?: Prisma.ProjectStepCreateNestedManyWithoutProjectInput
   savedBy?: Prisma.SavedProjectCreateNestedManyWithoutProjectInput
+  comments?: Prisma.CommentCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutUserInput = {
   id?: string
   title: string
-  description: string
+  summary: string
   difficulty: $Enums.SkillLevel
-  content?: string | null
+  content: string
   requirements?: Prisma.ProjectCreaterequirementsInput | string[]
-  images?: Prisma.ProjectCreateimagesInput | string[]
-  tagId: string
-  likes?: number
-  views?: number
+  coverImage?: string | null
   isPublic?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  tags?: Prisma.TagUncheckedCreateNestedManyWithoutProjectsInput
+  metaData?: Prisma.MetaDataUncheckedCreateNestedManyWithoutProjectInput
+  projectSteps?: Prisma.ProjectStepUncheckedCreateNestedManyWithoutProjectInput
   savedBy?: Prisma.SavedProjectUncheckedCreateNestedManyWithoutProjectInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutUserInput = {
@@ -762,111 +709,371 @@ export type ProjectScalarWhereInput = {
   id?: Prisma.StringFilter<"Project"> | string
   userId?: Prisma.StringFilter<"Project"> | string
   title?: Prisma.StringFilter<"Project"> | string
-  description?: Prisma.StringFilter<"Project"> | string
+  summary?: Prisma.StringFilter<"Project"> | string
   difficulty?: Prisma.EnumSkillLevelFilter<"Project"> | $Enums.SkillLevel
-  content?: Prisma.StringNullableFilter<"Project"> | string | null
+  content?: Prisma.StringFilter<"Project"> | string
   requirements?: Prisma.StringNullableListFilter<"Project">
-  images?: Prisma.StringNullableListFilter<"Project">
-  tagId?: Prisma.StringFilter<"Project"> | string
-  likes?: Prisma.IntFilter<"Project"> | number
-  views?: Prisma.IntFilter<"Project"> | number
+  coverImage?: Prisma.StringNullableFilter<"Project"> | string | null
   isPublic?: Prisma.BoolFilter<"Project"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Project"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Project"> | Date | string
 }
 
-export type ProjectCreateWithoutTagInput = {
+export type ProjectCreateWithoutProjectStepsInput = {
   id?: string
   title: string
-  description: string
+  summary: string
   difficulty: $Enums.SkillLevel
-  content?: string | null
+  content: string
   requirements?: Prisma.ProjectCreaterequirementsInput | string[]
-  images?: Prisma.ProjectCreateimagesInput | string[]
-  likes?: number
-  views?: number
+  coverImage?: string | null
   isPublic?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutProjectsInput
+  tags?: Prisma.TagCreateNestedManyWithoutProjectsInput
+  metaData?: Prisma.MetaDataCreateNestedManyWithoutProjectInput
   savedBy?: Prisma.SavedProjectCreateNestedManyWithoutProjectInput
+  comments?: Prisma.CommentCreateNestedManyWithoutProjectInput
 }
 
-export type ProjectUncheckedCreateWithoutTagInput = {
+export type ProjectUncheckedCreateWithoutProjectStepsInput = {
   id?: string
   userId: string
   title: string
-  description: string
+  summary: string
   difficulty: $Enums.SkillLevel
-  content?: string | null
+  content: string
   requirements?: Prisma.ProjectCreaterequirementsInput | string[]
-  images?: Prisma.ProjectCreateimagesInput | string[]
-  likes?: number
-  views?: number
+  coverImage?: string | null
   isPublic?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  tags?: Prisma.TagUncheckedCreateNestedManyWithoutProjectsInput
+  metaData?: Prisma.MetaDataUncheckedCreateNestedManyWithoutProjectInput
+  savedBy?: Prisma.SavedProjectUncheckedCreateNestedManyWithoutProjectInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectCreateOrConnectWithoutProjectStepsInput = {
+  where: Prisma.ProjectWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutProjectStepsInput, Prisma.ProjectUncheckedCreateWithoutProjectStepsInput>
+}
+
+export type ProjectUpsertWithoutProjectStepsInput = {
+  update: Prisma.XOR<Prisma.ProjectUpdateWithoutProjectStepsInput, Prisma.ProjectUncheckedUpdateWithoutProjectStepsInput>
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutProjectStepsInput, Prisma.ProjectUncheckedCreateWithoutProjectStepsInput>
+  where?: Prisma.ProjectWhereInput
+}
+
+export type ProjectUpdateToOneWithWhereWithoutProjectStepsInput = {
+  where?: Prisma.ProjectWhereInput
+  data: Prisma.XOR<Prisma.ProjectUpdateWithoutProjectStepsInput, Prisma.ProjectUncheckedUpdateWithoutProjectStepsInput>
+}
+
+export type ProjectUpdateWithoutProjectStepsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  summary?: Prisma.StringFieldUpdateOperationsInput | string
+  difficulty?: Prisma.EnumSkillLevelFieldUpdateOperationsInput | $Enums.SkillLevel
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  requirements?: Prisma.ProjectUpdaterequirementsInput | string[]
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
+  tags?: Prisma.TagUpdateManyWithoutProjectsNestedInput
+  metaData?: Prisma.MetaDataUpdateManyWithoutProjectNestedInput
+  savedBy?: Prisma.SavedProjectUpdateManyWithoutProjectNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectUncheckedUpdateWithoutProjectStepsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  summary?: Prisma.StringFieldUpdateOperationsInput | string
+  difficulty?: Prisma.EnumSkillLevelFieldUpdateOperationsInput | $Enums.SkillLevel
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  requirements?: Prisma.ProjectUpdaterequirementsInput | string[]
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tags?: Prisma.TagUncheckedUpdateManyWithoutProjectsNestedInput
+  metaData?: Prisma.MetaDataUncheckedUpdateManyWithoutProjectNestedInput
+  savedBy?: Prisma.SavedProjectUncheckedUpdateManyWithoutProjectNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectCreateWithoutCommentsInput = {
+  id?: string
+  title: string
+  summary: string
+  difficulty: $Enums.SkillLevel
+  content: string
+  requirements?: Prisma.ProjectCreaterequirementsInput | string[]
+  coverImage?: string | null
+  isPublic?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutProjectsInput
+  tags?: Prisma.TagCreateNestedManyWithoutProjectsInput
+  metaData?: Prisma.MetaDataCreateNestedManyWithoutProjectInput
+  projectSteps?: Prisma.ProjectStepCreateNestedManyWithoutProjectInput
+  savedBy?: Prisma.SavedProjectCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectUncheckedCreateWithoutCommentsInput = {
+  id?: string
+  userId: string
+  title: string
+  summary: string
+  difficulty: $Enums.SkillLevel
+  content: string
+  requirements?: Prisma.ProjectCreaterequirementsInput | string[]
+  coverImage?: string | null
+  isPublic?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tags?: Prisma.TagUncheckedCreateNestedManyWithoutProjectsInput
+  metaData?: Prisma.MetaDataUncheckedCreateNestedManyWithoutProjectInput
+  projectSteps?: Prisma.ProjectStepUncheckedCreateNestedManyWithoutProjectInput
   savedBy?: Prisma.SavedProjectUncheckedCreateNestedManyWithoutProjectInput
 }
 
-export type ProjectCreateOrConnectWithoutTagInput = {
+export type ProjectCreateOrConnectWithoutCommentsInput = {
   where: Prisma.ProjectWhereUniqueInput
-  create: Prisma.XOR<Prisma.ProjectCreateWithoutTagInput, Prisma.ProjectUncheckedCreateWithoutTagInput>
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutCommentsInput, Prisma.ProjectUncheckedCreateWithoutCommentsInput>
 }
 
-export type ProjectCreateManyTagInputEnvelope = {
-  data: Prisma.ProjectCreateManyTagInput | Prisma.ProjectCreateManyTagInput[]
-  skipDuplicates?: boolean
+export type ProjectUpsertWithoutCommentsInput = {
+  update: Prisma.XOR<Prisma.ProjectUpdateWithoutCommentsInput, Prisma.ProjectUncheckedUpdateWithoutCommentsInput>
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutCommentsInput, Prisma.ProjectUncheckedCreateWithoutCommentsInput>
+  where?: Prisma.ProjectWhereInput
 }
 
-export type ProjectUpsertWithWhereUniqueWithoutTagInput = {
+export type ProjectUpdateToOneWithWhereWithoutCommentsInput = {
+  where?: Prisma.ProjectWhereInput
+  data: Prisma.XOR<Prisma.ProjectUpdateWithoutCommentsInput, Prisma.ProjectUncheckedUpdateWithoutCommentsInput>
+}
+
+export type ProjectUpdateWithoutCommentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  summary?: Prisma.StringFieldUpdateOperationsInput | string
+  difficulty?: Prisma.EnumSkillLevelFieldUpdateOperationsInput | $Enums.SkillLevel
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  requirements?: Prisma.ProjectUpdaterequirementsInput | string[]
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
+  tags?: Prisma.TagUpdateManyWithoutProjectsNestedInput
+  metaData?: Prisma.MetaDataUpdateManyWithoutProjectNestedInput
+  projectSteps?: Prisma.ProjectStepUpdateManyWithoutProjectNestedInput
+  savedBy?: Prisma.SavedProjectUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectUncheckedUpdateWithoutCommentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  summary?: Prisma.StringFieldUpdateOperationsInput | string
+  difficulty?: Prisma.EnumSkillLevelFieldUpdateOperationsInput | $Enums.SkillLevel
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  requirements?: Prisma.ProjectUpdaterequirementsInput | string[]
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tags?: Prisma.TagUncheckedUpdateManyWithoutProjectsNestedInput
+  metaData?: Prisma.MetaDataUncheckedUpdateManyWithoutProjectNestedInput
+  projectSteps?: Prisma.ProjectStepUncheckedUpdateManyWithoutProjectNestedInput
+  savedBy?: Prisma.SavedProjectUncheckedUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectCreateWithoutMetaDataInput = {
+  id?: string
+  title: string
+  summary: string
+  difficulty: $Enums.SkillLevel
+  content: string
+  requirements?: Prisma.ProjectCreaterequirementsInput | string[]
+  coverImage?: string | null
+  isPublic?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutProjectsInput
+  tags?: Prisma.TagCreateNestedManyWithoutProjectsInput
+  projectSteps?: Prisma.ProjectStepCreateNestedManyWithoutProjectInput
+  savedBy?: Prisma.SavedProjectCreateNestedManyWithoutProjectInput
+  comments?: Prisma.CommentCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectUncheckedCreateWithoutMetaDataInput = {
+  id?: string
+  userId: string
+  title: string
+  summary: string
+  difficulty: $Enums.SkillLevel
+  content: string
+  requirements?: Prisma.ProjectCreaterequirementsInput | string[]
+  coverImage?: string | null
+  isPublic?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tags?: Prisma.TagUncheckedCreateNestedManyWithoutProjectsInput
+  projectSteps?: Prisma.ProjectStepUncheckedCreateNestedManyWithoutProjectInput
+  savedBy?: Prisma.SavedProjectUncheckedCreateNestedManyWithoutProjectInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectCreateOrConnectWithoutMetaDataInput = {
   where: Prisma.ProjectWhereUniqueInput
-  update: Prisma.XOR<Prisma.ProjectUpdateWithoutTagInput, Prisma.ProjectUncheckedUpdateWithoutTagInput>
-  create: Prisma.XOR<Prisma.ProjectCreateWithoutTagInput, Prisma.ProjectUncheckedCreateWithoutTagInput>
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutMetaDataInput, Prisma.ProjectUncheckedCreateWithoutMetaDataInput>
 }
 
-export type ProjectUpdateWithWhereUniqueWithoutTagInput = {
+export type ProjectUpsertWithoutMetaDataInput = {
+  update: Prisma.XOR<Prisma.ProjectUpdateWithoutMetaDataInput, Prisma.ProjectUncheckedUpdateWithoutMetaDataInput>
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutMetaDataInput, Prisma.ProjectUncheckedCreateWithoutMetaDataInput>
+  where?: Prisma.ProjectWhereInput
+}
+
+export type ProjectUpdateToOneWithWhereWithoutMetaDataInput = {
+  where?: Prisma.ProjectWhereInput
+  data: Prisma.XOR<Prisma.ProjectUpdateWithoutMetaDataInput, Prisma.ProjectUncheckedUpdateWithoutMetaDataInput>
+}
+
+export type ProjectUpdateWithoutMetaDataInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  summary?: Prisma.StringFieldUpdateOperationsInput | string
+  difficulty?: Prisma.EnumSkillLevelFieldUpdateOperationsInput | $Enums.SkillLevel
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  requirements?: Prisma.ProjectUpdaterequirementsInput | string[]
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
+  tags?: Prisma.TagUpdateManyWithoutProjectsNestedInput
+  projectSteps?: Prisma.ProjectStepUpdateManyWithoutProjectNestedInput
+  savedBy?: Prisma.SavedProjectUpdateManyWithoutProjectNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectUncheckedUpdateWithoutMetaDataInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  summary?: Prisma.StringFieldUpdateOperationsInput | string
+  difficulty?: Prisma.EnumSkillLevelFieldUpdateOperationsInput | $Enums.SkillLevel
+  content?: Prisma.StringFieldUpdateOperationsInput | string
+  requirements?: Prisma.ProjectUpdaterequirementsInput | string[]
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tags?: Prisma.TagUncheckedUpdateManyWithoutProjectsNestedInput
+  projectSteps?: Prisma.ProjectStepUncheckedUpdateManyWithoutProjectNestedInput
+  savedBy?: Prisma.SavedProjectUncheckedUpdateManyWithoutProjectNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutProjectNestedInput
+}
+
+export type ProjectCreateWithoutTagsInput = {
+  id?: string
+  title: string
+  summary: string
+  difficulty: $Enums.SkillLevel
+  content: string
+  requirements?: Prisma.ProjectCreaterequirementsInput | string[]
+  coverImage?: string | null
+  isPublic?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutProjectsInput
+  metaData?: Prisma.MetaDataCreateNestedManyWithoutProjectInput
+  projectSteps?: Prisma.ProjectStepCreateNestedManyWithoutProjectInput
+  savedBy?: Prisma.SavedProjectCreateNestedManyWithoutProjectInput
+  comments?: Prisma.CommentCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectUncheckedCreateWithoutTagsInput = {
+  id?: string
+  userId: string
+  title: string
+  summary: string
+  difficulty: $Enums.SkillLevel
+  content: string
+  requirements?: Prisma.ProjectCreaterequirementsInput | string[]
+  coverImage?: string | null
+  isPublic?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  metaData?: Prisma.MetaDataUncheckedCreateNestedManyWithoutProjectInput
+  projectSteps?: Prisma.ProjectStepUncheckedCreateNestedManyWithoutProjectInput
+  savedBy?: Prisma.SavedProjectUncheckedCreateNestedManyWithoutProjectInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutProjectInput
+}
+
+export type ProjectCreateOrConnectWithoutTagsInput = {
   where: Prisma.ProjectWhereUniqueInput
-  data: Prisma.XOR<Prisma.ProjectUpdateWithoutTagInput, Prisma.ProjectUncheckedUpdateWithoutTagInput>
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutTagsInput, Prisma.ProjectUncheckedCreateWithoutTagsInput>
 }
 
-export type ProjectUpdateManyWithWhereWithoutTagInput = {
+export type ProjectUpsertWithWhereUniqueWithoutTagsInput = {
+  where: Prisma.ProjectWhereUniqueInput
+  update: Prisma.XOR<Prisma.ProjectUpdateWithoutTagsInput, Prisma.ProjectUncheckedUpdateWithoutTagsInput>
+  create: Prisma.XOR<Prisma.ProjectCreateWithoutTagsInput, Prisma.ProjectUncheckedCreateWithoutTagsInput>
+}
+
+export type ProjectUpdateWithWhereUniqueWithoutTagsInput = {
+  where: Prisma.ProjectWhereUniqueInput
+  data: Prisma.XOR<Prisma.ProjectUpdateWithoutTagsInput, Prisma.ProjectUncheckedUpdateWithoutTagsInput>
+}
+
+export type ProjectUpdateManyWithWhereWithoutTagsInput = {
   where: Prisma.ProjectScalarWhereInput
-  data: Prisma.XOR<Prisma.ProjectUpdateManyMutationInput, Prisma.ProjectUncheckedUpdateManyWithoutTagInput>
+  data: Prisma.XOR<Prisma.ProjectUpdateManyMutationInput, Prisma.ProjectUncheckedUpdateManyWithoutTagsInput>
 }
 
 export type ProjectCreateWithoutSavedByInput = {
   id?: string
   title: string
-  description: string
+  summary: string
   difficulty: $Enums.SkillLevel
-  content?: string | null
+  content: string
   requirements?: Prisma.ProjectCreaterequirementsInput | string[]
-  images?: Prisma.ProjectCreateimagesInput | string[]
-  likes?: number
-  views?: number
+  coverImage?: string | null
   isPublic?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutProjectsInput
-  tag: Prisma.TagCreateNestedOneWithoutProjectsInput
+  tags?: Prisma.TagCreateNestedManyWithoutProjectsInput
+  metaData?: Prisma.MetaDataCreateNestedManyWithoutProjectInput
+  projectSteps?: Prisma.ProjectStepCreateNestedManyWithoutProjectInput
+  comments?: Prisma.CommentCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectUncheckedCreateWithoutSavedByInput = {
   id?: string
   userId: string
   title: string
-  description: string
+  summary: string
   difficulty: $Enums.SkillLevel
-  content?: string | null
+  content: string
   requirements?: Prisma.ProjectCreaterequirementsInput | string[]
-  images?: Prisma.ProjectCreateimagesInput | string[]
-  tagId: string
-  likes?: number
-  views?: number
+  coverImage?: string | null
   isPublic?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  tags?: Prisma.TagUncheckedCreateNestedManyWithoutProjectsInput
+  metaData?: Prisma.MetaDataUncheckedCreateNestedManyWithoutProjectInput
+  projectSteps?: Prisma.ProjectStepUncheckedCreateNestedManyWithoutProjectInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutProjectInput
 }
 
 export type ProjectCreateOrConnectWithoutSavedByInput = {
@@ -888,48 +1095,47 @@ export type ProjectUpdateToOneWithWhereWithoutSavedByInput = {
 export type ProjectUpdateWithoutSavedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
+  summary?: Prisma.StringFieldUpdateOperationsInput | string
   difficulty?: Prisma.EnumSkillLevelFieldUpdateOperationsInput | $Enums.SkillLevel
-  content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  content?: Prisma.StringFieldUpdateOperationsInput | string
   requirements?: Prisma.ProjectUpdaterequirementsInput | string[]
-  images?: Prisma.ProjectUpdateimagesInput | string[]
-  likes?: Prisma.IntFieldUpdateOperationsInput | number
-  views?: Prisma.IntFieldUpdateOperationsInput | number
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
-  tag?: Prisma.TagUpdateOneRequiredWithoutProjectsNestedInput
+  tags?: Prisma.TagUpdateManyWithoutProjectsNestedInput
+  metaData?: Prisma.MetaDataUpdateManyWithoutProjectNestedInput
+  projectSteps?: Prisma.ProjectStepUpdateManyWithoutProjectNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutSavedByInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
+  summary?: Prisma.StringFieldUpdateOperationsInput | string
   difficulty?: Prisma.EnumSkillLevelFieldUpdateOperationsInput | $Enums.SkillLevel
-  content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  content?: Prisma.StringFieldUpdateOperationsInput | string
   requirements?: Prisma.ProjectUpdaterequirementsInput | string[]
-  images?: Prisma.ProjectUpdateimagesInput | string[]
-  tagId?: Prisma.StringFieldUpdateOperationsInput | string
-  likes?: Prisma.IntFieldUpdateOperationsInput | number
-  views?: Prisma.IntFieldUpdateOperationsInput | number
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tags?: Prisma.TagUncheckedUpdateManyWithoutProjectsNestedInput
+  metaData?: Prisma.MetaDataUncheckedUpdateManyWithoutProjectNestedInput
+  projectSteps?: Prisma.ProjectStepUncheckedUpdateManyWithoutProjectNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectCreateManyUserInput = {
   id?: string
   title: string
-  description: string
+  summary: string
   difficulty: $Enums.SkillLevel
-  content?: string | null
+  content: string
   requirements?: Prisma.ProjectCreaterequirementsInput | string[]
-  images?: Prisma.ProjectCreateimagesInput | string[]
-  tagId: string
-  likes?: number
-  views?: number
+  coverImage?: string | null
   isPublic?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -938,114 +1144,97 @@ export type ProjectCreateManyUserInput = {
 export type ProjectUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
+  summary?: Prisma.StringFieldUpdateOperationsInput | string
   difficulty?: Prisma.EnumSkillLevelFieldUpdateOperationsInput | $Enums.SkillLevel
-  content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  content?: Prisma.StringFieldUpdateOperationsInput | string
   requirements?: Prisma.ProjectUpdaterequirementsInput | string[]
-  images?: Prisma.ProjectUpdateimagesInput | string[]
-  likes?: Prisma.IntFieldUpdateOperationsInput | number
-  views?: Prisma.IntFieldUpdateOperationsInput | number
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  tag?: Prisma.TagUpdateOneRequiredWithoutProjectsNestedInput
+  tags?: Prisma.TagUpdateManyWithoutProjectsNestedInput
+  metaData?: Prisma.MetaDataUpdateManyWithoutProjectNestedInput
+  projectSteps?: Prisma.ProjectStepUpdateManyWithoutProjectNestedInput
   savedBy?: Prisma.SavedProjectUpdateManyWithoutProjectNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
+  summary?: Prisma.StringFieldUpdateOperationsInput | string
   difficulty?: Prisma.EnumSkillLevelFieldUpdateOperationsInput | $Enums.SkillLevel
-  content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  content?: Prisma.StringFieldUpdateOperationsInput | string
   requirements?: Prisma.ProjectUpdaterequirementsInput | string[]
-  images?: Prisma.ProjectUpdateimagesInput | string[]
-  tagId?: Prisma.StringFieldUpdateOperationsInput | string
-  likes?: Prisma.IntFieldUpdateOperationsInput | number
-  views?: Prisma.IntFieldUpdateOperationsInput | number
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tags?: Prisma.TagUncheckedUpdateManyWithoutProjectsNestedInput
+  metaData?: Prisma.MetaDataUncheckedUpdateManyWithoutProjectNestedInput
+  projectSteps?: Prisma.ProjectStepUncheckedUpdateManyWithoutProjectNestedInput
   savedBy?: Prisma.SavedProjectUncheckedUpdateManyWithoutProjectNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutProjectNestedInput
 }
 
 export type ProjectUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
+  summary?: Prisma.StringFieldUpdateOperationsInput | string
   difficulty?: Prisma.EnumSkillLevelFieldUpdateOperationsInput | $Enums.SkillLevel
-  content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  content?: Prisma.StringFieldUpdateOperationsInput | string
   requirements?: Prisma.ProjectUpdaterequirementsInput | string[]
-  images?: Prisma.ProjectUpdateimagesInput | string[]
-  tagId?: Prisma.StringFieldUpdateOperationsInput | string
-  likes?: Prisma.IntFieldUpdateOperationsInput | number
-  views?: Prisma.IntFieldUpdateOperationsInput | number
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type ProjectCreateManyTagInput = {
-  id?: string
-  userId: string
-  title: string
-  description: string
-  difficulty: $Enums.SkillLevel
-  content?: string | null
-  requirements?: Prisma.ProjectCreaterequirementsInput | string[]
-  images?: Prisma.ProjectCreateimagesInput | string[]
-  likes?: number
-  views?: number
-  isPublic?: boolean
-  createdAt?: Date | string
-  updatedAt?: Date | string
-}
-
-export type ProjectUpdateWithoutTagInput = {
+export type ProjectUpdateWithoutTagsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
+  summary?: Prisma.StringFieldUpdateOperationsInput | string
   difficulty?: Prisma.EnumSkillLevelFieldUpdateOperationsInput | $Enums.SkillLevel
-  content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  content?: Prisma.StringFieldUpdateOperationsInput | string
   requirements?: Prisma.ProjectUpdaterequirementsInput | string[]
-  images?: Prisma.ProjectUpdateimagesInput | string[]
-  likes?: Prisma.IntFieldUpdateOperationsInput | number
-  views?: Prisma.IntFieldUpdateOperationsInput | number
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutProjectsNestedInput
+  metaData?: Prisma.MetaDataUpdateManyWithoutProjectNestedInput
+  projectSteps?: Prisma.ProjectStepUpdateManyWithoutProjectNestedInput
   savedBy?: Prisma.SavedProjectUpdateManyWithoutProjectNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutProjectNestedInput
 }
 
-export type ProjectUncheckedUpdateWithoutTagInput = {
+export type ProjectUncheckedUpdateWithoutTagsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
+  summary?: Prisma.StringFieldUpdateOperationsInput | string
   difficulty?: Prisma.EnumSkillLevelFieldUpdateOperationsInput | $Enums.SkillLevel
-  content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  content?: Prisma.StringFieldUpdateOperationsInput | string
   requirements?: Prisma.ProjectUpdaterequirementsInput | string[]
-  images?: Prisma.ProjectUpdateimagesInput | string[]
-  likes?: Prisma.IntFieldUpdateOperationsInput | number
-  views?: Prisma.IntFieldUpdateOperationsInput | number
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  metaData?: Prisma.MetaDataUncheckedUpdateManyWithoutProjectNestedInput
+  projectSteps?: Prisma.ProjectStepUncheckedUpdateManyWithoutProjectNestedInput
   savedBy?: Prisma.SavedProjectUncheckedUpdateManyWithoutProjectNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutProjectNestedInput
 }
 
-export type ProjectUncheckedUpdateManyWithoutTagInput = {
+export type ProjectUncheckedUpdateManyWithoutTagsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
+  summary?: Prisma.StringFieldUpdateOperationsInput | string
   difficulty?: Prisma.EnumSkillLevelFieldUpdateOperationsInput | $Enums.SkillLevel
-  content?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  content?: Prisma.StringFieldUpdateOperationsInput | string
   requirements?: Prisma.ProjectUpdaterequirementsInput | string[]
-  images?: Prisma.ProjectUpdateimagesInput | string[]
-  likes?: Prisma.IntFieldUpdateOperationsInput | number
-  views?: Prisma.IntFieldUpdateOperationsInput | number
+  coverImage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1057,11 +1246,19 @@ export type ProjectUncheckedUpdateManyWithoutTagInput = {
  */
 
 export type ProjectCountOutputType = {
+  tags: number
+  metaData: number
+  projectSteps: number
   savedBy: number
+  comments: number
 }
 
 export type ProjectCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  tags?: boolean | ProjectCountOutputTypeCountTagsArgs
+  metaData?: boolean | ProjectCountOutputTypeCountMetaDataArgs
+  projectSteps?: boolean | ProjectCountOutputTypeCountProjectStepsArgs
   savedBy?: boolean | ProjectCountOutputTypeCountSavedByArgs
+  comments?: boolean | ProjectCountOutputTypeCountCommentsArgs
 }
 
 /**
@@ -1077,8 +1274,36 @@ export type ProjectCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Exte
 /**
  * ProjectCountOutputType without action
  */
+export type ProjectCountOutputTypeCountTagsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TagWhereInput
+}
+
+/**
+ * ProjectCountOutputType without action
+ */
+export type ProjectCountOutputTypeCountMetaDataArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MetaDataWhereInput
+}
+
+/**
+ * ProjectCountOutputType without action
+ */
+export type ProjectCountOutputTypeCountProjectStepsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProjectStepWhereInput
+}
+
+/**
+ * ProjectCountOutputType without action
+ */
 export type ProjectCountOutputTypeCountSavedByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.SavedProjectWhereInput
+}
+
+/**
+ * ProjectCountOutputType without action
+ */
+export type ProjectCountOutputTypeCountCommentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CommentWhereInput
 }
 
 
@@ -1086,20 +1311,20 @@ export type ProjectSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   id?: boolean
   userId?: boolean
   title?: boolean
-  description?: boolean
+  summary?: boolean
   difficulty?: boolean
   content?: boolean
   requirements?: boolean
-  images?: boolean
-  tagId?: boolean
-  likes?: boolean
-  views?: boolean
+  coverImage?: boolean
   isPublic?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  tag?: boolean | Prisma.TagDefaultArgs<ExtArgs>
+  tags?: boolean | Prisma.Project$tagsArgs<ExtArgs>
+  metaData?: boolean | Prisma.Project$metaDataArgs<ExtArgs>
+  projectSteps?: boolean | Prisma.Project$projectStepsArgs<ExtArgs>
   savedBy?: boolean | Prisma.Project$savedByArgs<ExtArgs>
+  comments?: boolean | Prisma.Project$commentsArgs<ExtArgs>
   _count?: boolean | Prisma.ProjectCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["project"]>
 
@@ -1107,92 +1332,82 @@ export type ProjectSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   id?: boolean
   userId?: boolean
   title?: boolean
-  description?: boolean
+  summary?: boolean
   difficulty?: boolean
   content?: boolean
   requirements?: boolean
-  images?: boolean
-  tagId?: boolean
-  likes?: boolean
-  views?: boolean
+  coverImage?: boolean
   isPublic?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  tag?: boolean | Prisma.TagDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["project"]>
 
 export type ProjectSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   userId?: boolean
   title?: boolean
-  description?: boolean
+  summary?: boolean
   difficulty?: boolean
   content?: boolean
   requirements?: boolean
-  images?: boolean
-  tagId?: boolean
-  likes?: boolean
-  views?: boolean
+  coverImage?: boolean
   isPublic?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  tag?: boolean | Prisma.TagDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["project"]>
 
 export type ProjectSelectScalar = {
   id?: boolean
   userId?: boolean
   title?: boolean
-  description?: boolean
+  summary?: boolean
   difficulty?: boolean
   content?: boolean
   requirements?: boolean
-  images?: boolean
-  tagId?: boolean
-  likes?: boolean
-  views?: boolean
+  coverImage?: boolean
   isPublic?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type ProjectOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "title" | "description" | "difficulty" | "content" | "requirements" | "images" | "tagId" | "likes" | "views" | "isPublic" | "createdAt" | "updatedAt", ExtArgs["result"]["project"]>
+export type ProjectOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "title" | "summary" | "difficulty" | "content" | "requirements" | "coverImage" | "isPublic" | "createdAt" | "updatedAt", ExtArgs["result"]["project"]>
 export type ProjectInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  tag?: boolean | Prisma.TagDefaultArgs<ExtArgs>
+  tags?: boolean | Prisma.Project$tagsArgs<ExtArgs>
+  metaData?: boolean | Prisma.Project$metaDataArgs<ExtArgs>
+  projectSteps?: boolean | Prisma.Project$projectStepsArgs<ExtArgs>
   savedBy?: boolean | Prisma.Project$savedByArgs<ExtArgs>
+  comments?: boolean | Prisma.Project$commentsArgs<ExtArgs>
   _count?: boolean | Prisma.ProjectCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ProjectIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  tag?: boolean | Prisma.TagDefaultArgs<ExtArgs>
 }
 export type ProjectIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  tag?: boolean | Prisma.TagDefaultArgs<ExtArgs>
 }
 
 export type $ProjectPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Project"
   objects: {
     user: Prisma.$UserPayload<ExtArgs>
-    tag: Prisma.$TagPayload<ExtArgs>
+    tags: Prisma.$TagPayload<ExtArgs>[]
+    metaData: Prisma.$MetaDataPayload<ExtArgs>[]
+    projectSteps: Prisma.$ProjectStepPayload<ExtArgs>[]
     savedBy: Prisma.$SavedProjectPayload<ExtArgs>[]
+    comments: Prisma.$CommentPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     userId: string
     title: string
-    description: string
+    summary: string
     difficulty: $Enums.SkillLevel
-    content: string | null
+    content: string
     requirements: string[]
-    images: string[]
-    tagId: string
-    likes: number
-    views: number
+    coverImage: string | null
     isPublic: boolean
     createdAt: Date
     updatedAt: Date
@@ -1591,8 +1806,11 @@ readonly fields: ProjectFieldRefs;
 export interface Prisma__ProjectClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  tag<T extends Prisma.TagDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TagDefaultArgs<ExtArgs>>): Prisma.Prisma__TagClient<runtime.Types.Result.GetResult<Prisma.$TagPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  tags<T extends Prisma.Project$tagsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$tagsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  metaData<T extends Prisma.Project$metaDataArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$metaDataArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MetaDataPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  projectSteps<T extends Prisma.Project$projectStepsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$projectStepsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectStepPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   savedBy<T extends Prisma.Project$savedByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$savedByArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SavedProjectPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  comments<T extends Prisma.Project$commentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$commentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1625,14 +1843,11 @@ export interface ProjectFieldRefs {
   readonly id: Prisma.FieldRef<"Project", 'String'>
   readonly userId: Prisma.FieldRef<"Project", 'String'>
   readonly title: Prisma.FieldRef<"Project", 'String'>
-  readonly description: Prisma.FieldRef<"Project", 'String'>
+  readonly summary: Prisma.FieldRef<"Project", 'String'>
   readonly difficulty: Prisma.FieldRef<"Project", 'SkillLevel'>
   readonly content: Prisma.FieldRef<"Project", 'String'>
   readonly requirements: Prisma.FieldRef<"Project", 'String[]'>
-  readonly images: Prisma.FieldRef<"Project", 'String[]'>
-  readonly tagId: Prisma.FieldRef<"Project", 'String'>
-  readonly likes: Prisma.FieldRef<"Project", 'Int'>
-  readonly views: Prisma.FieldRef<"Project", 'Int'>
+  readonly coverImage: Prisma.FieldRef<"Project", 'String'>
   readonly isPublic: Prisma.FieldRef<"Project", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"Project", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Project", 'DateTime'>
@@ -2032,6 +2247,78 @@ export type ProjectDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
 }
 
 /**
+ * Project.tags
+ */
+export type Project$tagsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Tag
+   */
+  select?: Prisma.TagSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Tag
+   */
+  omit?: Prisma.TagOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TagInclude<ExtArgs> | null
+  where?: Prisma.TagWhereInput
+  orderBy?: Prisma.TagOrderByWithRelationInput | Prisma.TagOrderByWithRelationInput[]
+  cursor?: Prisma.TagWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TagScalarFieldEnum | Prisma.TagScalarFieldEnum[]
+}
+
+/**
+ * Project.metaData
+ */
+export type Project$metaDataArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MetaData
+   */
+  select?: Prisma.MetaDataSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the MetaData
+   */
+  omit?: Prisma.MetaDataOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MetaDataInclude<ExtArgs> | null
+  where?: Prisma.MetaDataWhereInput
+  orderBy?: Prisma.MetaDataOrderByWithRelationInput | Prisma.MetaDataOrderByWithRelationInput[]
+  cursor?: Prisma.MetaDataWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MetaDataScalarFieldEnum | Prisma.MetaDataScalarFieldEnum[]
+}
+
+/**
+ * Project.projectSteps
+ */
+export type Project$projectStepsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProjectStep
+   */
+  select?: Prisma.ProjectStepSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ProjectStep
+   */
+  omit?: Prisma.ProjectStepOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProjectStepInclude<ExtArgs> | null
+  where?: Prisma.ProjectStepWhereInput
+  orderBy?: Prisma.ProjectStepOrderByWithRelationInput | Prisma.ProjectStepOrderByWithRelationInput[]
+  cursor?: Prisma.ProjectStepWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProjectStepScalarFieldEnum | Prisma.ProjectStepScalarFieldEnum[]
+}
+
+/**
  * Project.savedBy
  */
 export type Project$savedByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2053,6 +2340,30 @@ export type Project$savedByArgs<ExtArgs extends runtime.Types.Extensions.Interna
   take?: number
   skip?: number
   distinct?: Prisma.SavedProjectScalarFieldEnum | Prisma.SavedProjectScalarFieldEnum[]
+}
+
+/**
+ * Project.comments
+ */
+export type Project$commentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Comment
+   */
+  select?: Prisma.CommentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Comment
+   */
+  omit?: Prisma.CommentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CommentInclude<ExtArgs> | null
+  where?: Prisma.CommentWhereInput
+  orderBy?: Prisma.CommentOrderByWithRelationInput | Prisma.CommentOrderByWithRelationInput[]
+  cursor?: Prisma.CommentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CommentScalarFieldEnum | Prisma.CommentScalarFieldEnum[]
 }
 
 /**

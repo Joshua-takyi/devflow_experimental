@@ -35,6 +35,7 @@ model User {
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
   refreshTokens RefreshToken[]
+  comments      Comment[]
 }
 
 model Project {
@@ -42,24 +43,53 @@ model Project {
   userId       String
   user         User           @relation(fields: [userId], references: [id])
   title        String
-  description  String
+  summary      String
   difficulty   SkillLevel
   content      String // markdown or rich text
   requirements String[] // array of strings
-  images       String[] // Cloudinary URLs
-  tagId        String
-  tag          Tag            @relation(fields: [tagId], references: [id])
-  likes        Int            @default(0)
-  views        Int            @default(0)
+  coverImage   String?
+  tags         Tag[]
   isPublic     Boolean        @default(true)
+  metaData     MetaData[]
+  projectSteps ProjectStep[]
+  savedBy      SavedProject[]
   createdAt    DateTime       @default(now())
   updatedAt    DateTime       @updatedAt
-  savedBy      SavedProject[]
+  comments     Comment[]
+}
+
+model ProjectStep {
+  id        String   @id @default(uuid())
+  projectId String
+  project   Project  @relation(fields: [projectId], references: [id])
+  order     Int // 1, 2, 3...
+  title     String
+  content   String? // markdown or rich text
+  images    String[] // Cloudinary URLs
+}
+
+model Comment {
+  id        String   @id @default(uuid())
+  projectId String
+  project   Project  @relation(fields: [projectId], references: [id])
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model MetaData {
+  id        String  @id @default(uuid())
+  likes     Int     @default(0)
+  projectId String
+  project   Project @relation(fields: [projectId], references: [id])
+  views     Int     @default(0)
 }
 
 model Tag {
   id        String    @id @default(uuid())
-  name      String
+  name      String    @unique
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   projects  Project[]

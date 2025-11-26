@@ -10,6 +10,9 @@
  */
 export type * from './models/User.ts'
 export type * from './models/Project.ts'
+export type * from './models/ProjectStep.ts'
+export type * from './models/Comment.ts'
+export type * from './models/MetaData.ts'
 export type * from './models/Tag.ts'
 export type * from './models/SavedProject.ts'
 export type * from './models/RefreshToken.ts'

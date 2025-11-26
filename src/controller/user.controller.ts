@@ -19,9 +19,6 @@ export const userController = {
     try {
       const validateSchema = registerSchema.parse(req.body);
       const { email, password } = validateSchema;
-      if (!email || !password) {
-        return next(new AppError("Invalid email or password", 400));
-      }
       const user = await userService.register({ email, password });
 
       const token = generateToken(user);

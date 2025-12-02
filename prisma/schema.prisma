@@ -43,6 +43,7 @@ model Project {
   userId       String
   user         User           @relation(fields: [userId], references: [id])
   title        String
+  slug         String         @unique
   summary      String
   difficulty   SkillLevel
   content      String // markdown or rich text

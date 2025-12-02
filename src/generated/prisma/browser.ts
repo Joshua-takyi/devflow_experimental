@@ -28,6 +28,21 @@ export type User = Prisma.UserModel
  */
 export type Project = Prisma.ProjectModel
 /**
+ * Model ProjectStep
+ * 
+ */
+export type ProjectStep = Prisma.ProjectStepModel
+/**
+ * Model Comment
+ * 
+ */
+export type Comment = Prisma.CommentModel
+/**
+ * Model MetaData
+ * 
+ */
+export type MetaData = Prisma.MetaDataModel
+/**
  * Model Tag
  * 
  */

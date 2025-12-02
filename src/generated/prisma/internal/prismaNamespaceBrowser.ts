@@ -53,6 +53,9 @@ export const AnyNull = runtime.AnyNull
 export const ModelName = {
   User: 'User',
   Project: 'Project',
+  ProjectStep: 'ProjectStep',
+  Comment: 'Comment',
+  MetaData: 'MetaData',
   Tag: 'Tag',
   SavedProject: 'SavedProject',
   RefreshToken: 'RefreshToken'
@@ -97,20 +100,51 @@ export const ProjectScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   title: 'title',
-  description: 'description',
+  summary: 'summary',
   difficulty: 'difficulty',
   content: 'content',
   requirements: 'requirements',
-  images: 'images',
-  tagId: 'tagId',
-  likes: 'likes',
-  views: 'views',
+  coverImage: 'coverImage',
   isPublic: 'isPublic',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type ProjectScalarFieldEnum = (typeof ProjectScalarFieldEnum)[keyof typeof ProjectScalarFieldEnum]
+
+
+export const ProjectStepScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  order: 'order',
+  title: 'title',
+  content: 'content',
+  images: 'images'
+} as const
+
+export type ProjectStepScalarFieldEnum = (typeof ProjectStepScalarFieldEnum)[keyof typeof ProjectStepScalarFieldEnum]
+
+
+export const CommentScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  userId: 'userId',
+  content: 'content',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CommentScalarFieldEnum = (typeof CommentScalarFieldEnum)[keyof typeof CommentScalarFieldEnum]
+
+
+export const MetaDataScalarFieldEnum = {
+  id: 'id',
+  likes: 'likes',
+  projectId: 'projectId',
+  views: 'views'
+} as const
+
+export type MetaDataScalarFieldEnum = (typeof MetaDataScalarFieldEnum)[keyof typeof MetaDataScalarFieldEnum]
 
 
 export const TagScalarFieldEnum = {

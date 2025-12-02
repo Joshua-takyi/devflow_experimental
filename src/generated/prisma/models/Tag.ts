@@ -187,14 +187,14 @@ export type TagOrderByWithRelationInput = {
 
 export type TagWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  name?: string
   AND?: Prisma.TagWhereInput | Prisma.TagWhereInput[]
   OR?: Prisma.TagWhereInput[]
   NOT?: Prisma.TagWhereInput | Prisma.TagWhereInput[]
-  name?: Prisma.StringFilter<"Tag"> | string
   createdAt?: Prisma.DateTimeFilter<"Tag"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Tag"> | Date | string
   projects?: Prisma.ProjectListRelationFilter
-}, "id">
+}, "id" | "name">
 
 export type TagOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -221,7 +221,7 @@ export type TagCreateInput = {
   name: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  projects?: Prisma.ProjectCreateNestedManyWithoutTagInput
+  projects?: Prisma.ProjectCreateNestedManyWithoutTagsInput
 }
 
 export type TagUncheckedCreateInput = {
@@ -229,7 +229,7 @@ export type TagUncheckedCreateInput = {
   name: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutTagInput
+  projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutTagsInput
 }
 
 export type TagUpdateInput = {
@@ -237,7 +237,7 @@ export type TagUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  projects?: Prisma.ProjectUpdateManyWithoutTagNestedInput
+  projects?: Prisma.ProjectUpdateManyWithoutTagsNestedInput
 }
 
 export type TagUncheckedUpdateInput = {
@@ -245,7 +245,7 @@ export type TagUncheckedUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  projects?: Prisma.ProjectUncheckedUpdateManyWithoutTagNestedInput
+  projects?: Prisma.ProjectUncheckedUpdateManyWithoutTagsNestedInput
 }
 
 export type TagCreateManyInput = {
@@ -269,9 +269,14 @@ export type TagUncheckedUpdateManyInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type TagScalarRelationFilter = {
-  is?: Prisma.TagWhereInput
-  isNot?: Prisma.TagWhereInput
+export type TagListRelationFilter = {
+  every?: Prisma.TagWhereInput
+  some?: Prisma.TagWhereInput
+  none?: Prisma.TagWhereInput
+}
+
+export type TagOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
 }
 
 export type TagCountOrderByAggregateInput = {
@@ -295,18 +300,42 @@ export type TagMinOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
 }
 
-export type TagCreateNestedOneWithoutProjectsInput = {
-  create?: Prisma.XOR<Prisma.TagCreateWithoutProjectsInput, Prisma.TagUncheckedCreateWithoutProjectsInput>
-  connectOrCreate?: Prisma.TagCreateOrConnectWithoutProjectsInput
-  connect?: Prisma.TagWhereUniqueInput
+export type TagCreateNestedManyWithoutProjectsInput = {
+  create?: Prisma.XOR<Prisma.TagCreateWithoutProjectsInput, Prisma.TagUncheckedCreateWithoutProjectsInput> | Prisma.TagCreateWithoutProjectsInput[] | Prisma.TagUncheckedCreateWithoutProjectsInput[]
+  connectOrCreate?: Prisma.TagCreateOrConnectWithoutProjectsInput | Prisma.TagCreateOrConnectWithoutProjectsInput[]
+  connect?: Prisma.TagWhereUniqueInput | Prisma.TagWhereUniqueInput[]
 }
 
-export type TagUpdateOneRequiredWithoutProjectsNestedInput = {
-  create?: Prisma.XOR<Prisma.TagCreateWithoutProjectsInput, Prisma.TagUncheckedCreateWithoutProjectsInput>
-  connectOrCreate?: Prisma.TagCreateOrConnectWithoutProjectsInput
-  upsert?: Prisma.TagUpsertWithoutProjectsInput
-  connect?: Prisma.TagWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.TagUpdateToOneWithWhereWithoutProjectsInput, Prisma.TagUpdateWithoutProjectsInput>, Prisma.TagUncheckedUpdateWithoutProjectsInput>
+export type TagUncheckedCreateNestedManyWithoutProjectsInput = {
+  create?: Prisma.XOR<Prisma.TagCreateWithoutProjectsInput, Prisma.TagUncheckedCreateWithoutProjectsInput> | Prisma.TagCreateWithoutProjectsInput[] | Prisma.TagUncheckedCreateWithoutProjectsInput[]
+  connectOrCreate?: Prisma.TagCreateOrConnectWithoutProjectsInput | Prisma.TagCreateOrConnectWithoutProjectsInput[]
+  connect?: Prisma.TagWhereUniqueInput | Prisma.TagWhereUniqueInput[]
+}
+
+export type TagUpdateManyWithoutProjectsNestedInput = {
+  create?: Prisma.XOR<Prisma.TagCreateWithoutProjectsInput, Prisma.TagUncheckedCreateWithoutProjectsInput> | Prisma.TagCreateWithoutProjectsInput[] | Prisma.TagUncheckedCreateWithoutProjectsInput[]
+  connectOrCreate?: Prisma.TagCreateOrConnectWithoutProjectsInput | Prisma.TagCreateOrConnectWithoutProjectsInput[]
+  upsert?: Prisma.TagUpsertWithWhereUniqueWithoutProjectsInput | Prisma.TagUpsertWithWhereUniqueWithoutProjectsInput[]
+  set?: Prisma.TagWhereUniqueInput | Prisma.TagWhereUniqueInput[]
+  disconnect?: Prisma.TagWhereUniqueInput | Prisma.TagWhereUniqueInput[]
+  delete?: Prisma.TagWhereUniqueInput | Prisma.TagWhereUniqueInput[]
+  connect?: Prisma.TagWhereUniqueInput | Prisma.TagWhereUniqueInput[]
+  update?: Prisma.TagUpdateWithWhereUniqueWithoutProjectsInput | Prisma.TagUpdateWithWhereUniqueWithoutProjectsInput[]
+  updateMany?: Prisma.TagUpdateManyWithWhereWithoutProjectsInput | Prisma.TagUpdateManyWithWhereWithoutProjectsInput[]
+  deleteMany?: Prisma.TagScalarWhereInput | Prisma.TagScalarWhereInput[]
+}
+
+export type TagUncheckedUpdateManyWithoutProjectsNestedInput = {
+  create?: Prisma.XOR<Prisma.TagCreateWithoutProjectsInput, Prisma.TagUncheckedCreateWithoutProjectsInput> | Prisma.TagCreateWithoutProjectsInput[] | Prisma.TagUncheckedCreateWithoutProjectsInput[]
+  connectOrCreate?: Prisma.TagCreateOrConnectWithoutProjectsInput | Prisma.TagCreateOrConnectWithoutProjectsInput[]
+  upsert?: Prisma.TagUpsertWithWhereUniqueWithoutProjectsInput | Prisma.TagUpsertWithWhereUniqueWithoutProjectsInput[]
+  set?: Prisma.TagWhereUniqueInput | Prisma.TagWhereUniqueInput[]
+  disconnect?: Prisma.TagWhereUniqueInput | Prisma.TagWhereUniqueInput[]
+  delete?: Prisma.TagWhereUniqueInput | Prisma.TagWhereUniqueInput[]
+  connect?: Prisma.TagWhereUniqueInput | Prisma.TagWhereUniqueInput[]
+  update?: Prisma.TagUpdateWithWhereUniqueWithoutProjectsInput | Prisma.TagUpdateWithWhereUniqueWithoutProjectsInput[]
+  updateMany?: Prisma.TagUpdateManyWithWhereWithoutProjectsInput | Prisma.TagUpdateManyWithWhereWithoutProjectsInput[]
+  deleteMany?: Prisma.TagScalarWhereInput | Prisma.TagScalarWhereInput[]
 }
 
 export type TagCreateWithoutProjectsInput = {
@@ -328,15 +357,30 @@ export type TagCreateOrConnectWithoutProjectsInput = {
   create: Prisma.XOR<Prisma.TagCreateWithoutProjectsInput, Prisma.TagUncheckedCreateWithoutProjectsInput>
 }
 
-export type TagUpsertWithoutProjectsInput = {
+export type TagUpsertWithWhereUniqueWithoutProjectsInput = {
+  where: Prisma.TagWhereUniqueInput
   update: Prisma.XOR<Prisma.TagUpdateWithoutProjectsInput, Prisma.TagUncheckedUpdateWithoutProjectsInput>
   create: Prisma.XOR<Prisma.TagCreateWithoutProjectsInput, Prisma.TagUncheckedCreateWithoutProjectsInput>
-  where?: Prisma.TagWhereInput
 }
 
-export type TagUpdateToOneWithWhereWithoutProjectsInput = {
-  where?: Prisma.TagWhereInput
+export type TagUpdateWithWhereUniqueWithoutProjectsInput = {
+  where: Prisma.TagWhereUniqueInput
   data: Prisma.XOR<Prisma.TagUpdateWithoutProjectsInput, Prisma.TagUncheckedUpdateWithoutProjectsInput>
+}
+
+export type TagUpdateManyWithWhereWithoutProjectsInput = {
+  where: Prisma.TagScalarWhereInput
+  data: Prisma.XOR<Prisma.TagUpdateManyMutationInput, Prisma.TagUncheckedUpdateManyWithoutProjectsInput>
+}
+
+export type TagScalarWhereInput = {
+  AND?: Prisma.TagScalarWhereInput | Prisma.TagScalarWhereInput[]
+  OR?: Prisma.TagScalarWhereInput[]
+  NOT?: Prisma.TagScalarWhereInput | Prisma.TagScalarWhereInput[]
+  id?: Prisma.StringFilter<"Tag"> | string
+  name?: Prisma.StringFilter<"Tag"> | string
+  createdAt?: Prisma.DateTimeFilter<"Tag"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Tag"> | Date | string
 }
 
 export type TagUpdateWithoutProjectsInput = {
@@ -347,6 +391,13 @@ export type TagUpdateWithoutProjectsInput = {
 }
 
 export type TagUncheckedUpdateWithoutProjectsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type TagUncheckedUpdateManyWithoutProjectsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string

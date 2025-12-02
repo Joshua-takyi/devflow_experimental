@@ -1,14 +1,28 @@
+type MetaData = {
+  likes: Number;
+  views: Number;
+  projectId: string;
+};
+
 export interface ProjectDTO {
+  id?: string;
   title: string;
-  difficulty: "beginner" | "intermediate" | "advanced";
-  tags: string[];
-  description: string;
+  summary: string;
+  userId: string;
+  difficulty: "BEGINNER" | "INTERMEDIATE" | "ADVANCED";
+  content: string;
+  requirements: string[];
+  coverImage?: string;
+  tagName: string[];
+  metaData: MetaData;
+  projectSteps: ProjectStepDTO[];
 }
 
-export interface ProjectFeedItem {
-  id: string;
+export interface ProjectStepDTO {
+  id?: string;
+  projectId?: string;
+  order?: number;
   title: string;
-  userId: string;
-  upvotes: number;
-  createdAt: Date;
+  content?: string;
+  images?: string[];
 }

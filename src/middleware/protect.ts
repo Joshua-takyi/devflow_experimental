@@ -28,6 +28,7 @@ export const protectionMiddleware = async (
   req.user = {
     id: user.id,
     email: user.email,
+    role: user.role,
   };
 
   next();
